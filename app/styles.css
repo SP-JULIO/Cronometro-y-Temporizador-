@@ -1,0 +1,861 @@
+/* ===== Variables ===== */ /* Sección de tokens de diseño y variables globales en CSS */
+:root { /* Selector de la raíz del documento para definir variables accesibles globalmente */
+  --color-bg: #09090b; /* Color de fondo principal muy oscuro (modo oscuro por defecto) */
+  --color-surface: #121215; /* Color de superficie para tarjetas, paneles y contenedores */
+  --color-surface-hover: #18181b; /* Tono de superficie interactivo al pasar el cursor (hover) */
+  --color-surface-active: #222226; /* Tono de superficie interactivo al hacer clic/presionar (active) */
+  --color-border: #27272a; /* Color estándar para bordes y divisores estructurales */
+  --color-border-subtle: #1c1c1f; /* Borde de menor contraste para separaciones secundarias */
+  --color-border-focus: #3b82f6; /* Color azul destacado para bordes en estado de foco */
+  --color-text: #fafafa; /* Color de texto principal de alto contraste (blanco suave) */
+  --color-text-muted: #a1a1aa; /* Color de texto secundario con brillo atenuado */
+  --color-text-subtle: #71717a; /* Color de texto terciario para etiquetas y separadores discretos */
+  --color-primary: #2563eb; /* Color de acento primario (azul) para botones y elementos clave */
+  --color-primary-hover: #1d4ed8; /* Color primario oscurecido para el estado hover */
+  --color-primary-active: #1e40af; /* Color primario más profundo para el estado presionado */
+  --color-primary-text: #ffffff; /* Color de texto blanco puro sobre fondo primario */
+  --color-secondary: #18181b; /* Fondo para botones y controles secundarios */
+  --color-secondary-hover: #222226; /* Tono secundario interactivo para hover */
+  --color-secondary-active: #27272a; /* Tono secundario para estado activo/presionado */
+  --color-secondary-text: #e4e4e7; /* Texto claro para botones secundarios */
+  --color-danger: #ef4444; /* Color rojo de advertencia/peligro para reiniciar o errores */
+  --color-danger-bg: rgba(239, 68, 68, 0.12); /* Fondo rojizo translúcido para botones de reinicio */
+  --color-danger-border: rgba(239, 68, 68, 0.3); /* Borde rojo semitransparente de peligro */
+  --color-danger-hover: #dc2626; /* Rojo más intenso para hover de peligro */
+  --color-danger-active: #b91c1c; /* Rojo oscuro para cuando se presiona un botón peligroso */
+  --color-danger-text: #fca5a5; /* Texto rojo pastel claro sobre fondos oscuros */
+  --color-focus: #3b82f6; /* Color del anillo de accesibilidad para navegación por teclado */
+  --color-fastest: #10b981; /* Verde esmeralda para identificar la vuelta más rápida */
+  --color-fastest-bg: rgba(16, 185, 129, 0.08); /* Fondo verde translúcido para la vuelta más rápida */
+  --color-fastest-border: rgba(16, 185, 129, 0.25); /* Borde verde translúcido para la vuelta rápida */
+  --color-slowest: #f59e0b; /* Color ámbar/naranja para señalar la vuelta más lenta */
+  --color-slowest-bg: rgba(245, 158, 11, 0.08); /* Fondo ámbar translúcido para la fila de vuelta lenta */
+  --color-slowest-border: rgba(245, 158, 11, 0.25); /* Borde ámbar translúcido para la vuelta lenta */
+  --color-alert-bg: rgba(239, 68, 68, 0.08); /* Fondo rojo muy tenue para la caja de alerta */
+  --color-alert-border: rgba(239, 68, 68, 0.3); /* Borde para enmarcar la alerta de fin de tiempo */
+  --color-alert-text: #fca5a5; /* Color del texto del aviso de tiempo terminado */
+  --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; /* Pila tipográfica del sistema para texto general */
+  --font-mono: "JetBrains Mono", "Fira Code", SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; /* Tipografías monoespaciadas para dígitos numéricos */
+  --space-1: 0.25rem; /* Espaciador de escala fija (4px) */
+  --space-2: 0.5rem; /* Espaciador de escala fija (8px) */
+  --space-3: 0.75rem; /* Espaciador de escala fija (12px) */
+  --space-4: 1rem; /* Espaciador de escala fija (16px) */
+  --space-5: 1.5rem; /* Espaciador de escala fija (24px) */
+  --space-6: 2rem; /* Espaciador de escala fija (32px) */
+  --space-7: 2.5rem; /* Espaciador de escala fija (40px) */
+  --space-8: 3rem; /* Espaciador de escala fija (48px) */
+  --radius-xs: 0.25rem; /* Radio de borde extra pequeño (4px) */
+  --radius-sm: 0.375rem; /* Radio de borde pequeño (6px) */
+  --radius-md: 0.5rem; /* Radio de borde mediano (8px) */
+  --radius-lg: 0.75rem; /* Radio de borde grande (12px) */
+  --radius-xl: 0.875rem; /* Radio de borde extra grande (14px) */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.35); /* Sombra sutil para botones y pestañas */
+  --shadow-card: 0 8px 24px -4px rgba(0, 0, 0, 0.4), inset 0 1px 0 0 rgba(255, 255, 255, 0.04); /* Sombra de elevación y bisel superior para contenedores */
+  --shadow-display: 0 12px 32px -6px rgba(0, 0, 0, 0.5), inset 0 1px 0 0 rgba(255, 255, 255, 0.06); /* Sombra profunda y reflejo sutil para la pantalla digital */
+  --transition-fast: 140ms cubic-bezier(0.16, 1, 0.3, 1); /* Transición rápida con desaceleración natural (140ms) */
+  --transition-base: 200ms cubic-bezier(0.16, 1, 0.3, 1); /* Transición intermedia estándar (200ms) */
+  --touch-target: 48px; /* Altura mínima recomendada por pautas WCAG para interacción táctil en móviles */
+} /* Cierre de las variables de :root */
+@media (prefers-color-scheme: light) { /* Media query que detecta si el usuario prefiere el tema claro en su sistema operativo */
+  :root { /* Sobrescribe las variables de diseño para el modo claro */
+    --color-bg: #f8fafc; /* Fondo claro general ligeramente grisáceo */
+    --color-surface: #ffffff; /* Superficie en blanco puro */
+    --color-surface-hover: #f1f5f9; /* Tono hover gris claro */
+    --color-surface-active: #e2e8f0; /* Tono presionado gris intermedio */
+    --color-border: #e2e8f0; /* Bordes suaves para fondos claros */
+    --color-border-subtle: #f1f5f9; /* Bordes secundarios ultra claros */
+    --color-border-focus: #2563eb; /* Azul para bordes en foco */
+    --color-text: #09090b; /* Texto principal oscuro de máximo contraste */
+    --color-text-muted: #64748b; /* Texto secundario gris pizarra */
+    --color-text-subtle: #94a3b8; /* Texto atenuado gris claro */
+    --color-primary: #2563eb; /* Azul primario constante */
+    --color-primary-hover: #1d4ed8; /* Hover primario */
+    --color-primary-active: #1e40af; /* Estado activo primario */
+    --color-primary-text: #ffffff; /* Texto sobre el botón primario */
+    --color-secondary: #f1f5f9; /* Fondo gris claro para botones secundarios */
+    --color-secondary-hover: #e2e8f0; /* Hover para botones secundarios */
+    --color-secondary-active: #cbd5e1; /* Activo para botones secundarios */
+    --color-secondary-text: #0f172a; /* Texto oscuro sobre botones secundarios */
+    --color-danger: #dc2626; /* Rojo de alerta para tema claro */
+    --color-danger-bg: rgba(220, 38, 38, 0.08); /* Fondo rojo muy suave para botones de peligro */
+    --color-danger-border: rgba(220, 38, 38, 0.25); /* Borde rojo suave */
+    --color-danger-hover: #b91c1c; /* Hover peligro */
+    --color-danger-active: #991b1b; /* Activo peligro */
+    --color-danger-text: #b91c1c; /* Texto rojo oscuro legible sobre fondo claro */
+    --color-focus: #2563eb; /* Indicador de foco accesible */
+    --color-fastest: #059669; /* Verde más oscuro para cumplir ratio de contraste en fondo claro */
+    --color-fastest-bg: rgba(16, 185, 129, 0.1); /* Fondo verde tenue para vuelta rápida */
+    --color-fastest-border: rgba(16, 185, 129, 0.3); /* Borde verde tenue */
+    --color-slowest: #d97706; /* Ámbar oscuro para buen contraste en vuelta lenta */
+    --color-slowest-bg: rgba(245, 158, 11, 0.1); /* Fondo ámbar tenue para vuelta lenta */
+    --color-slowest-border: rgba(245, 158, 11, 0.3); /* Borde ámbar tenue */
+    --color-alert-bg: rgba(220, 38, 38, 0.06); /* Fondo rojo suave de alerta */
+    --color-alert-border: rgba(220, 38, 38, 0.25); /* Borde de alerta */
+    --color-alert-text: #991b1b; /* Texto rojo oscuro para la alerta */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.04); /* Sombras atenuadas para tema claro */
+    --shadow-card: 0 4px 16px -2px rgba(0, 0, 0, 0.06), inset 0 1px 0 0 rgba(255, 255, 255, 0.8); /* Sombra y bisel claro para tarjetas */
+    --shadow-display: 0 8px 24px -4px rgba(0, 0, 0, 0.08), inset 0 1px 0 0 rgba(255, 255, 255, 0.9); /* Sombra suave para la pantalla en modo claro */
+  } /* Cierre de variables en tema claro */
+} /* Cierre de media query prefers-color-scheme */
+/* ===== Reset y base ===== */ /* Normalización y reglas de partida */
+*, /* Selecciona todos los elementos */
+*::before, /* Selecciona todos los pseudo-elementos ::before */
+*::after { /* Selecciona todos los pseudo-elementos ::after */
+  box-sizing: border-box; /* Incluye padding y border en el cálculo del ancho y alto total */
+  margin: 0; /* Elimina márgenes por defecto del navegador */
+  padding: 0; /* Elimina rellenos por defecto del navegador */
+} /* Cierre del reset universal */
+html, /* Elemento html */
+body { /* Elemento body */
+  width: 100%; /* Ocupa el 100% del ancho de la ventana */
+  max-width: 100%; /* Evita que el contenedor desborde el ancho */
+  overflow-x: hidden; /* Previene cualquier scroll horizontal no deseado */
+} /* Cierre de reglas para html y body */
+body { /* Estilos globales del documento */
+  min-height: 100vh; /* Asegura que el alto mínimo sea el 100% de la ventana */
+  min-height: 100dvh; /* Soporte para Dynamic Viewport Height en navegadores móviles modernos */
+  background-color: var(--color-bg); /* Aplica el color de fondo definido en las variables */
+  color: var(--color-text); /* Aplica el color de texto principal */
+  font-family: var(--font-family); /* Aplica la familia de fuentes del sistema */
+  font-size: 0.9375rem; /* Tamaño de fuente base (15px) */
+  line-height: 1.5; /* Altura de línea estándar para mejorar legibilidad */
+  -webkit-font-smoothing: antialiased; /* Suavizado de fuentes en WebKit/macOS */
+  -moz-osx-font-smoothing: grayscale; /* Renderizado nítido de fuentes en Firefox/macOS */
+} /* Cierre de body */
+/* ===== Disposición ===== */ /* Estructura general de la cuadrícula o flexbox */
+.app { /* Contenedor raíz de toda la aplicación */
+  display: flex; /* Activa flexbox para organizar los hijos en columna */
+  flex-direction: column; /* Apila verticalmente cabecera, contenido y pie */
+  min-height: 100vh; /* Altura mínima de la ventana completa */
+  min-height: 100dvh; /* Altura mínima dinámica móvil */
+  padding: var(--space-4); /* Relleno interior base de 16px */
+  padding-top: calc(var(--space-4) + env(safe-area-inset-top)); /* Agrega relleno extra arriba para evitar el notch móvil */
+  padding-right: calc(var(--space-4) + env(safe-area-inset-right)); /* Relleno seguro en el lateral derecho */
+  padding-bottom: calc(var(--space-4) + env(safe-area-inset-bottom)); /* Relleno seguro en la parte inferior (barra de inicio de iOS) */
+  padding-left: calc(var(--space-4) + env(safe-area-inset-left)); /* Relleno seguro en el lateral izquierdo */
+  max-width: 1120px; /* Ancho máximo de diseño para pantallas grandes */
+  margin-left: auto; /* Centra el contenedor horizontalmente a la izquierda */
+  margin-right: auto; /* Centra el contenedor horizontalmente a la derecha */
+  width: 100%; /* Ocupa el ancho disponible */
+} /* Cierre de .app */
+.app__header { /* Modificador de posición para el encabezado de la app */
+  margin-bottom: var(--space-5); /* Margen inferior de 24px hacia el contenido principal */
+} /* Cierre de .app__header */
+.app__main { /* Contenedor central del contenido */
+  flex: 1 0 auto; /* Hace que el main crezca y empuje el footer al fondo de la pantalla */
+  display: flex; /* Distribución flexible interna */
+  flex-direction: column; /* Dirección en columna */
+  width: 100%; /* Ocupa todo el ancho */
+} /* Cierre de .app__main */
+.app__footer { /* Modificador de posición para el pie de página */
+  margin-top: auto; /* Empuja el footer hacia la parte inferior del contenedor */
+  padding-top: var(--space-6); /* Separación superior de 32px */
+  padding-bottom: var(--space-2); /* Separación inferior de 8px */
+} /* Cierre de .app__footer */
+/* ===== Encabezado ===== */ /* Estilos del bloque header */
+.header { /* Contenedor de la cabecera */
+  display: flex; /* Flexbox */
+  flex-direction: column; /* Apilado vertical */
+  align-items: center; /* Centra todos los elementos horizontalmente */
+  gap: var(--space-3); /* Separación de 12px entre la marca y las pestañas */
+  text-align: center; /* Alineación del texto al centro */
+} /* Cierre de .header */
+.header__brand { /* Contenedor de insignia y título */
+  display: flex; /* Flexbox */
+  flex-direction: column; /* Disposición vertical */
+  align-items: center; /* Centrado horizontal */
+  gap: var(--space-1); /* Separación de 4px entre insignia y título */
+} /* Cierre de .header__brand */
+.header__badge { /* Insignia "PRECISIÓN" */
+  display: inline-block; /* Elemento en línea con dimensiones de bloque */
+  font-size: 0.6875rem; /* Tamaño de fuente pequeño (11px) */
+  font-weight: 700; /* Tipografía en negrita */
+  letter-spacing: 0.12em; /* Espaciado entre letras amplio para estilo insignia */
+  color: var(--color-primary); /* Color azul primario */
+  text-transform: uppercase; /* Convierte todo el texto a mayúsculas */
+} /* Cierre de .header__badge */
+.header__title { /* Título principal <h1> */
+  font-size: clamp(1.25rem, 3.5vw, 1.75rem); /* Tamaño fluido: mínimo 20px, escala 3.5vw, máximo 28px */
+  font-weight: 700; /* Tipografía gruesa/negrita */
+  color: var(--color-text); /* Color de texto principal */
+  letter-spacing: -0.025em; /* Ajuste sutil del interletrado */
+} /* Cierre de .header__title */
+/* ===== Pestañas ===== */ /* Componente de navegación tipo tabs */
+.tabs { /* Contenedor general de pestañas */
+  display: inline-flex; /* Flexbox en línea para ajustarse al contenido */
+  padding: 3px; /* Relleno interior mínimo para crear el marco */
+  background-color: var(--color-surface); /* Fondo del contenedor de pestañas */
+  border: 1px solid var(--color-border); /* Borde sutil exterior */
+  border-radius: var(--radius-md); /* Esquinas redondeadas (8px) */
+  gap: 2px; /* Separación de 2px entre botones de pestañas */
+  width: 100%; /* Ancho completo */
+  max-width: 320px; /* Ancho máximo para mantenerlo compacto */
+  box-shadow: var(--shadow-sm); /* Sombra ligera */
+} /* Cierre de .tabs */
+.tabs__item { /* Cada botón individual de pestaña */
+  flex: 1 1 0; /* Distribuye el ancho equitativamente entre pestañas */
+  display: inline-flex; /* Centrado flexible */
+  align-items: center; /* Centrado vertical */
+  justify-content: center; /* Centrado horizontal */
+  min-height: var(--touch-target); /* Altura mínima de 48px para facilitar el toque táctil */
+  padding: var(--space-2) var(--space-3); /* Relleno interior 8px vertical y 12px horizontal */
+  border: 1px solid transparent; /* Borde transparente por defecto para evitar saltos de layout */
+  border-radius: var(--radius-sm); /* Bordes redondeados pequeños (6px) */
+  background-color: transparent; /* Fondo transparente por defecto */
+  color: var(--color-text-muted); /* Color de texto atenuado para pestaña inactiva */
+  font-family: inherit; /* Hereda la tipografía de la app */
+  font-size: 0.875rem; /* Tamaño de 14px */
+  font-weight: 600; /* Peso de fuente semi-negrita */
+  cursor: pointer; /* Cursor de mano interactivo */
+  transition: background-color var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast); /* Transición suave de colores */
+  white-space: nowrap; /* Evita que el texto de la pestaña se divida en dos líneas */
+} /* Cierre de .tabs__item */
+.tabs__item--active { /* Estado de la pestaña actualmente seleccionada */
+  background-color: var(--color-secondary); /* Fondo sólido para resaltar */
+  border-color: var(--color-border); /* Borde visible definido */
+  color: var(--color-text); /* Texto en blanco de alto contraste */
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2); /* Sombra que eleva la pestaña activa */
+} /* Cierre de .tabs__item--active */
+/* ===== Paneles ===== */ /* Secciones correspondientes a cada pestaña */
+.panel { /* Estado base de un panel */
+  display: none; /* Oculto por defecto */
+  width: 100%; /* Ancho completo */
+} /* Cierre de .panel */
+.panel:not([hidden]) { /* Panel visible que no tiene el atributo HTML hidden */
+  display: flex; /* Muestra el panel con flexbox */
+  flex-direction: column; /* Apilado vertical */
+  width: 100%; /* Ocupa todo el ancho */
+} /* Cierre de .panel:not([hidden]) */
+.panel__body { /* Contenedor interno del panel */
+  display: flex; /* Flexbox */
+  flex-direction: column; /* Dirección en columna */
+  gap: var(--space-5); /* Espaciado de 24px entre bloques internos */
+  width: 100%; /* Ancho completo */
+} /* Cierre de .panel__body */
+.panel__primary { /* Zona principal con pantalla y controles */
+  display: flex; /* Flexbox */
+  flex-direction: column; /* Dirección vertical */
+  align-items: center; /* Centra los hijos horizontalmente */
+  gap: var(--space-4); /* Separación de 16px */
+  width: 100%; /* Ancho completo */
+} /* Cierre de .panel__primary */
+.panel__secondary { /* Zona secundaria (historial de vueltas) */
+  width: 100%; /* Ocupa el 100% del ancho */
+} /* Cierre de .panel__secondary */
+.panel__controls { /* Contenedor específico de botones dentro del panel */
+  width: 100%; /* Ancho completo */
+} /* Cierre de .panel__controls */
+.panel__form { /* Formulario dentro del panel */
+  margin-left: auto; /* Centra horizontalmente a la izquierda */
+  margin-right: auto; /* Centra horizontalmente a la derecha */
+} /* Cierre de .panel__form */
+/* ===== Pantalla ===== */ /* Display digital grande del tiempo */
+.display { /* Caja contenedora de los dígitos */
+  display: flex; /* Flexbox */
+  align-items: center; /* Centrado vertical */
+  justify-content: center; /* Centrado horizontal */
+  width: 100%; /* Ancho total */
+  padding: var(--space-7) var(--space-4); /* Relleno generoso (40px vertical, 16px horizontal) */
+  background-color: var(--color-surface); /* Fondo oscuro de superficie */
+  border: 1px solid var(--color-border); /* Borde sutil */
+  border-radius: var(--radius-xl); /* Esquinas muy redondeadas (14px) */
+  box-shadow: var(--shadow-display); /* Sombra profunda que simula pantalla empotrada */
+  transition: border-color var(--transition-base), box-shadow var(--transition-base), color var(--transition-base); /* Transición suave de cambios de estado */
+} /* Cierre de .display */
+.display__time { /* Contenedor del texto del tiempo */
+  font-family: var(--font-mono); /* Tipografía monoespaciada para evitar que los números salten */
+  font-variant-numeric: tabular-nums; /* Asegura anchos numéricos tabulares idénticos */
+  font-feature-settings: "tnum"; /* Habilita números tabulares mediante características OpenType */
+  font-size: clamp(3.25rem, 15vw, 7.5rem); /* Tamaño gigante adaptable según el ancho de la pantalla */
+  font-weight: 600; /* Peso de texto seminegrita */
+  line-height: 1; /* Altura de línea ajustada sin espacios sobrantes */
+  letter-spacing: -0.03em; /* Ajuste para números condensados */
+  text-align: center; /* Texto centrado */
+  color: var(--color-text); /* Color claro del texto */
+  display: inline-flex; /* Alineación flexible en línea */
+  align-items: baseline; /* Alinea los milisegundos a la línea base de los segundos */
+  justify-content: center; /* Centrado horizontal */
+} /* Cierre de .display__time */
+.display__digits { /* Dígitos principales MM:SS */
+  font-feature-settings: "tnum"; /* Forzado de números monoespaciados */
+} /* Cierre de .display__digits */
+.display__ms { /* Dígitos de milisegundos .ms */
+  font-size: 0.58em; /* Tamaño reducido en proporción (58% del tamaño principal) */
+  opacity: 0.65; /* Atenúa visualmente los milisegundos para dar jerarquía a los segundos */
+  font-weight: 500; /* Peso ligeramente menor */
+  margin-left: 0.04em; /* Separación sutil respecto a los segundos */
+  letter-spacing: -0.01em; /* Ajuste de espaciado */
+  font-feature-settings: "tnum"; /* Números tabulares */
+} /* Cierre de .display__ms */
+.display--idle { /* Estado del display en reposo */
+  border-color: var(--color-border); /* Borde neutro */
+} /* Cierre de .display--idle */
+.display--running { /* Estado del display en marcha */
+  border-color: rgba(59, 130, 246, 0.4); /* Borde azul translúcido */
+  box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.15), var(--shadow-display); /* Resplandor azulado exterior sutil */
+} /* Cierre de .display--running */
+.display--paused { /* Estado del display en pausa */
+  border-color: rgba(245, 158, 11, 0.3); /* Borde ámbar/amarillo tenue */
+} /* Cierre de .display--paused */
+.display--paused .display__time { /* Texto del tiempo cuando está en pausa */
+  opacity: 0.75; /* Atenúa el brillo del texto para denotar pausa */
+} /* Cierre de .display--paused .display__time */
+.display--finished { /* Estado del display cuando termina la cuenta regresiva */
+  color: var(--color-danger); /* Texto en color rojo de alerta */
+  border-color: var(--color-danger); /* Borde rojo */
+  box-shadow: 0 0 0 1px rgba(239, 68, 68, 0.25), var(--shadow-display); /* Resplandor exterior rojo */
+  animation: display-pulse 1.2s infinite alternate ease-in-out; /* Animación pulsante continua */
+} /* Cierre de .display--finished */
+/* ===== Controles ===== */ /* Contenedor de botones de acción */
+.controls { /* Grupo de botones */
+  display: flex; /* Flexbox */
+  flex-direction: column; /* Apila los botones verticalmente en móviles */
+  gap: var(--space-2); /* Separación de 8px entre botones */
+  width: 100%; /* Ocupa el 100% del ancho */
+} /* Cierre de .controls */
+/* ===== Botones ===== */ /* Estilos de botones genéricos y variantes */
+.button { /* Botón base */
+  display: inline-flex; /* Centrado en línea con flexbox */
+  align-items: center; /* Centrado vertical */
+  justify-content: center; /* Centrado horizontal */
+  min-height: var(--touch-target); /* Altura mínima de 48px para facilitar pulsar con el dedo */
+  min-width: var(--touch-target); /* Ancho mínimo de 48px */
+  padding: 0.75rem 1.5rem; /* Relleno interior (12px vertical, 24px horizontal) */
+  border: 1px solid transparent; /* Borde transparente por defecto */
+  border-radius: var(--radius-md); /* Esquinas redondeadas (8px) */
+  font-family: inherit; /* Hereda tipografía */
+  font-size: 0.9375rem; /* Tamaño de 15px */
+  font-weight: 600; /* Peso de texto seminegrita */
+  line-height: 1.2; /* Altura de línea compacta */
+  text-align: center; /* Texto centrado */
+  cursor: pointer; /* Cursor de puntero de mano */
+  user-select: none; /* Evita que el usuario seleccione el texto por accidente al hacer doble clic */
+  box-shadow: var(--shadow-sm); /* Sombra sutil */
+  transition: background-color var(--transition-fast), border-color var(--transition-fast), opacity var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast); /* Transición suave en todas sus propiedades */
+} /* Cierre de .button */
+.button:active:not(:disabled) { /* Efecto al presionar un botón activo */
+  transform: scale(0.98); /* Se encoge sutilmente al 98% dando feedback de pulsación física */
+} /* Cierre de .button:active:not(:disabled) */
+.button:disabled { /* Estado deshabilitado del botón */
+  opacity: 0.35; /* Reduce la opacidad al 35% para indicar inactividad */
+  cursor: not-allowed; /* Cambia el cursor a símbolo de prohibido */
+  transform: none; /* Desactiva la animación de encogimiento */
+  box-shadow: none; /* Quita sombras */
+} /* Cierre de .button:disabled */
+.button--primary { /* Botón de acción principal (Iniciar) */
+  background-color: var(--color-primary); /* Fondo azul */
+  color: var(--color-primary-text); /* Texto blanco */
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.25), inset 0 1px 0 0 rgba(255, 255, 255, 0.15); /* Sombra exterior y bisel de luz interior */
+} /* Cierre de .button--primary */
+.button--secondary { /* Botón de acción secundaria (Pausar, Vuelta) */
+  background-color: var(--color-secondary); /* Fondo gris oscuro */
+  color: var(--color-secondary-text); /* Texto claro */
+  border-color: var(--color-border); /* Borde sutil */
+} /* Cierre de .button--secondary */
+.button--danger { /* Botón de acción destructiva o reseteo (Reiniciar) */
+  background-color: var(--color-danger-bg); /* Fondo rojizo suave */
+  color: var(--color-danger-text); /* Texto rojo pastel */
+  border-color: var(--color-danger-border); /* Borde rojo sutil */
+} /* Cierre de .button--danger */
+.button--preset { /* Botones de tiempos predeterminados (1m, 5m, etc.) */
+  background-color: var(--color-surface); /* Fondo del panel */
+  color: var(--color-text-muted); /* Texto atenuado */
+  border: 1px solid var(--color-border); /* Borde delgado */
+  border-radius: var(--radius-sm); /* Esquinas redondeadas (6px) */
+  font-size: 0.8125rem; /* Tamaño de fuente compacto (13px) */
+  font-weight: 600; /* Peso de texto seminegrita */
+  padding: var(--space-2) var(--space-3); /* Relleno compacto (8px por 12px) */
+  min-height: var(--touch-target); /* Mantiene área táctil mínima de 48px */
+  box-shadow: var(--shadow-sm); /* Sombra ligera */
+} /* Cierre de .button--preset */
+/* ===== Formulario ===== */ /* Inputs y presets de configuración del temporizador */
+.form { /* Formulario general */
+  display: flex; /* Flexbox */
+  flex-direction: column; /* Apilado en columna */
+  align-items: center; /* Centra los campos */
+  gap: var(--space-3); /* Separación de 12px */
+  width: 100%; /* Ancho total */
+  max-width: 440px; /* Ancho máximo para mantenerlo estilizado */
+} /* Cierre de .form */
+.form__group { /* Agrupación fieldset */
+  display: flex; /* Flexbox horizontal */
+  align-items: center; /* Centra verticalmente */
+  justify-content: center; /* Centra horizontalmente */
+  gap: var(--space-2); /* Separación de 8px */
+  border: none; /* Elimina borde nativo del fieldset */
+  padding: 0; /* Sin padding */
+  margin: 0; /* Sin margin */
+  width: 100%; /* Ancho total */
+} /* Cierre de .form__group */
+.form__separator { /* Símbolo de dos puntos (:) entre minutos y segundos */
+  font-family: var(--font-mono); /* Tipografía monoespaciada */
+  font-size: 1.75rem; /* Tamaño grande de 28px */
+  font-weight: 600; /* Negrita */
+  color: var(--color-text-subtle); /* Color discreto */
+  line-height: 1; /* Altura de línea compacta */
+  margin-top: 1.25rem; /* Compensa la altura de los labels superiores para alinearse con los inputs */
+} /* Cierre de .form__separator */
+.form__presets { /* Barra de botones de tiempos rápidos */
+  display: flex; /* Disposición en fila */
+  justify-content: center; /* Centrado horizontal */
+  gap: var(--space-2); /* Separación de 8px entre botones */
+  width: 100%; /* Ocupa todo el ancho */
+} /* Cierre de .form__presets */
+.field { /* Contenedor de cada campo (etiqueta + input) */
+  display: flex; /* Flexbox */
+  flex-direction: column; /* Etiqueta arriba, input abajo */
+  align-items: center; /* Centra ambos elementos */
+  gap: var(--space-1); /* Separación de 4px */
+} /* Cierre de .field */
+.field__label { /* Etiqueta del input (Minutos / Segundos) */
+  font-size: 0.75rem; /* Tamaño de 12px */
+  font-weight: 600; /* Seminegrita */
+  color: var(--color-text-subtle); /* Color atenuado */
+  text-transform: uppercase; /* Mayúsculas */
+  letter-spacing: 0.08em; /* Letras espaciadas */
+} /* Cierre de .field__label */
+.field__input { /* Input numérico de entrada */
+  width: 96px; /* Ancho fijo de 96px */
+  height: var(--touch-target); /* Altura de 48px */
+  padding: var(--space-2); /* Relleno interior */
+  background-color: var(--color-surface); /* Fondo oscuro */
+  border: 1px solid var(--color-border); /* Borde regular */
+  border-radius: var(--radius-md); /* Esquinas redondeadas (8px) */
+  color: var(--color-text); /* Color del texto escrito */
+  font-family: var(--font-mono); /* Fuente monoespaciada */
+  font-size: 1.5rem; /* Tamaño grande de 24px */
+  font-weight: 600; /* Seminegrita */
+  text-align: center; /* Texto centrado en la caja */
+  font-variant-numeric: tabular-nums; /* Números tabulares */
+  font-feature-settings: "tnum"; /* Característica OpenType para números de ancho fijo */
+  box-shadow: inset 0 1px 2px 0 rgba(0, 0, 0, 0.25); /* Sombra interna para sensación de hundimiento */
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast); /* Transición de foco */
+  -moz-appearance: textfield; /* Oculta flechas nativas de incremento numérico en Firefox */
+} /* Cierre de .field__input */
+.field__input::-webkit-outer-spin-button, /* Selector de flecha externa en navegadores WebKit/Blink (Chrome/Safari) */
+.field__input::-webkit-inner-spin-button { /* Selector de flecha interna en WebKit/Blink */
+  -webkit-appearance: none; /* Elimina visualmente las flechas nativas numéricas */
+  margin: 0; /* Quita márgenes residuales */
+} /* Cierre de pseudo-elementos spin-button */
+.field__input:focus { /* Input en estado de foco */
+  border-color: var(--color-border-focus); /* Borde azul */
+  outline: none; /* Quita el contorno nativo */
+  box-shadow: 0 0 0 1px var(--color-border-focus); /* Anillo fino de foco azul */
+} /* Cierre de .field__input:focus */
+.field__input[aria-invalid="true"] { /* Input cuando falla la validación */
+  border-color: var(--color-danger); /* Borde rojo de error */
+} /* Cierre de input inválido */
+.field__input:disabled { /* Input deshabilitado durante la cuenta regresiva */
+  opacity: 0.4; /* Opacidad al 40% */
+  cursor: not-allowed; /* Cursor de prohibido */
+} /* Cierre de input deshabilitado */
+.field__error { /* Mensaje de texto de error de validación */
+  min-height: 1.25rem; /* Reserva altura fija (20px) para evitar saltos de interfaz cuando aparezca o desaparezca el texto */
+  font-size: 0.8125rem; /* Tamaño de 13px */
+  font-weight: 500; /* Peso medio */
+  color: var(--color-danger); /* Texto rojo de error */
+  text-align: center; /* Centrado */
+} /* Cierre de .field__error */
+/* ===== Lista de vueltas ===== */ /* Tabla y tarjeta del historial de laps */
+.lap-list-container { /* Contenedor de la tarjeta de vueltas */
+  display: flex; /* Flexbox */
+  flex-direction: column; /* En columna */
+  width: 100%; /* Ancho completo */
+  background-color: var(--color-surface); /* Fondo oscuro */
+  border: 1px solid var(--color-border); /* Borde exterior */
+  border-radius: var(--radius-lg); /* Esquinas redondeadas (12px) */
+  box-shadow: var(--shadow-card); /* Sombra de tarjeta */
+  overflow: hidden; /* Oculta esquinas sobrantes */
+  max-height: 380px; /* Altura máxima con límite fijo para activar scroll vertical */
+} /* Cierre de .lap-list-container */
+.lap-list-container__header { /* Cabecera del panel de vueltas */
+  display: flex; /* Flexbox */
+  align-items: center; /* Centrado vertical */
+  justify-content: space-between; /* Título a la izquierda, contador a la derecha */
+  padding: var(--space-3) var(--space-4); /* Relleno interior 12px por 16px */
+  border-bottom: 1px solid var(--color-border); /* Línea divisoria inferior */
+  background-color: rgba(255, 255, 255, 0.015); /* Acento sutil casi transparente */
+} /* Cierre de .lap-list-container__header */
+.lap-list-container__title { /* Título "Registro de vueltas" */
+  font-size: 0.8125rem; /* 13px */
+  font-weight: 700; /* Negrita */
+  color: var(--color-text); /* Texto claro */
+  letter-spacing: -0.01em; /* Ajuste entre caracteres */
+} /* Cierre de .lap-list-container__title */
+.lap-list-container__count { /* Contador con número de vueltas */
+  font-size: 0.75rem; /* 12px */
+  font-weight: 600; /* Seminegrita */
+  color: var(--color-text-subtle); /* Color atenuado */
+  background-color: var(--color-secondary); /* Fondo oscuro secundario */
+  border: 1px solid var(--color-border); /* Borde delgado */
+  padding: 1px 7px; /* Relleno tipo etiqueta */
+  border-radius: var(--radius-xs); /* Bordes redondeados pequeños (4px) */
+} /* Cierre de .lap-list-container__count */
+.lap-list-table-header { /* Encabezados de columnas (#, Parcial, Total) */
+  display: grid; /* Cuadrícula CSS Grid */
+  grid-template-columns: 56px 1fr 1fr; /* Columna 1 fija de 56px, columnas 2 y 3 se reparten el resto a partes iguales */
+  align-items: center; /* Centrado vertical */
+  padding: var(--space-2) var(--space-4); /* Relleno 8px por 16px */
+  background-color: var(--color-surface); /* Fondo del panel */
+  border-bottom: 1px solid var(--color-border-subtle); /* Borde inferior sutil */
+  font-size: 0.6875rem; /* Tamaño pequeño de 11px */
+  font-weight: 700; /* Negrita */
+  color: var(--color-text-subtle); /* Color atenuado */
+  text-transform: uppercase; /* Mayúsculas */
+  letter-spacing: 0.08em; /* Letras separadas */
+} /* Cierre de .lap-list-table-header */
+.lap-list-table-header__col--split, /* Columna cabecera del parcial */
+.lap-list-table-header__col--total { /* Columna cabecera del total */
+  text-align: right; /* Alineación a la derecha para que coincida con los números */
+} /* Cierre de alineaciones de cabecera */
+.lap-list { /* Lista ordenada <ol> de vueltas */
+  list-style: none; /* Elimina viñetas o numeración nativa de la lista */
+  overflow-y: auto; /* Activa barra de desplazamiento vertical solo si sobrepasa la altura */
+  padding: 0; /* Sin relleno */
+  margin: 0; /* Sin margen */
+  width: 100%; /* Ancho total */
+} /* Cierre de .lap-list */
+.lap-list:empty { /* Si la lista <ol> no tiene elementos hijos */
+  display: none; /* Oculta la lista vacía */
+} /* Cierre de .lap-list:empty */
+.lap-list:not(:empty) + .lap-list-container__empty { /* Si la lista tiene elementos, selecciona el mensaje de lista vacía adyacente */
+  display: none; /* Oculta el mensaje de "Sin vueltas registradas" */
+} /* Cierre de ocultación condicional del mensaje vacío */
+.lap-list-container__empty { /* Mensaje visible cuando no hay vueltas registradas */
+  padding: var(--space-6) var(--space-4); /* Relleno amplio (32px vertical) */
+  text-align: center; /* Texto centrado */
+  font-size: 0.8125rem; /* 13px */
+  color: var(--color-text-subtle); /* Color atenuado */
+} /* Cierre de .lap-list-container__empty */
+.lap-list__item { /* Fila individual de una vuelta (elemento <li>) */
+  display: grid; /* CSS Grid idéntico al encabezado */
+  grid-template-columns: 56px 1fr 1fr; /* 56px para número, 1fr para parcial, 1fr para total */
+  align-items: center; /* Centrado vertical */
+  padding: 0.625rem var(--space-4); /* Relleno vertical de 10px y horizontal de 16px */
+  border-bottom: 1px solid var(--color-border-subtle); /* Línea divisoria inferior entre vueltas */
+  font-family: var(--font-mono); /* Tipografía monoespaciada para los tiempos */
+  font-variant-numeric: tabular-nums; /* Ancho idéntico para cada dígito */
+  font-feature-settings: "tnum"; /* Fuerza números tabulares */
+  font-size: 0.875rem; /* 14px */
+  transition: background-color var(--transition-fast); /* Suaviza el cambio de color al pasar el cursor */
+} /* Cierre de .lap-list__item */
+.lap-list__item:last-child { /* Último ítem de la lista */
+  border-bottom: none; /* Quita el borde inferior al final para no chocar con el borde del contenedor */
+} /* Cierre de last-child */
+.lap-list__col { /* Celda genérica de columna */
+  display: inline-flex; /* Flexbox en línea */
+  align-items: center; /* Centrado vertical */
+} /* Cierre de .lap-list__col */
+.lap-list__col--number { /* Columna del número de vuelta */
+  font-weight: 600; /* Seminegrita */
+  color: var(--color-text-muted); /* Color gris medio */
+  gap: var(--space-2); /* Separación de 8px */
+} /* Cierre de columna número */
+.lap-list__col--split { /* Columna del tiempo parcial */
+  font-weight: 500; /* Peso normal-medio */
+  color: var(--color-text); /* Color claro */
+  justify-content: flex-end; /* Alinea a la derecha */
+  gap: var(--space-2); /* Separación de 8px con la insignia si existe */
+} /* Cierre de columna split */
+.lap-list__col--total { /* Columna del tiempo total acumulado */
+  font-weight: 600; /* Seminegrita */
+  color: var(--color-text-muted); /* Gris atenuado */
+  justify-content: flex-end; /* Alineación a la derecha */
+} /* Cierre de columna total */
+.lap-list__badge { /* Insignia de "Rápida" o "Lenta" */
+  font-family: var(--font-family); /* Usa la fuente estándar del sistema (no monoespaciada) */
+  font-size: 0.625rem; /* Tamaño diminuto de 10px */
+  font-weight: 700; /* Negrita */
+  text-transform: uppercase; /* Mayúsculas */
+  letter-spacing: 0.05em; /* Letras separadas */
+  padding: 1px 5px; /* Relleno compacto */
+  border-radius: var(--radius-xs); /* Esquinas redondeadas (4px) */
+  line-height: 1.2; /* Altura de línea compacta */
+} /* Cierre de .lap-list__badge */
+.lap-list__item--fastest { /* Fila de la vuelta con el mejor tiempo (más rápida) */
+  background-color: var(--color-fastest-bg); /* Fondo verdoso sutil */
+} /* Cierre de .lap-list__item--fastest */
+.lap-list__item--fastest .lap-list__col--split { /* Parcial de la vuelta más rápida */
+  color: var(--color-fastest); /* Texto verde esmeralda */
+  font-weight: 700; /* Negrita para resaltar */
+} /* Cierre de columna parcial de la vuelta más rápida */
+.lap-list__badge--fastest { /* Insignia verde "Rápida" */
+  background-color: var(--color-fastest-bg); /* Fondo verde translúcido */
+  border: 1px solid var(--color-fastest-border); /* Borde verde fino */
+  color: var(--color-fastest); /* Texto verde */
+} /* Cierre de .lap-list__badge--fastest */
+.lap-list__item--slowest { /* Fila de la vuelta con el peor tiempo (más lenta) */
+  background-color: var(--color-slowest-bg); /* Fondo ámbar sutil */
+} /* Cierre de .lap-list__item--slowest */
+.lap-list__item--slowest .lap-list__col--split { /* Parcial de la vuelta más lenta */
+  color: var(--color-slowest); /* Texto ámbar */
+  font-weight: 700; /* Negrita para destacar */
+} /* Cierre de columna parcial de la vuelta más lenta */
+.lap-list__badge--slowest { /* Insignia ámbar "Lenta" */
+  background-color: var(--color-slowest-bg); /* Fondo ámbar translúcido */
+  border: 1px solid var(--color-slowest-border); /* Borde ámbar fino */
+  color: var(--color-slowest); /* Texto ámbar */
+} /* Cierre de .lap-list__badge--slowest */
+/* ===== Alerta ===== */ /* Notificación visual de tiempo finalizado */
+.alert { /* Contenedor de la alerta */
+  display: flex; /* Flexbox */
+  align-items: center; /* Centrado vertical */
+  justify-content: center; /* Centrado horizontal */
+  gap: var(--space-2); /* Separación de 8px */
+  width: 100%; /* Ancho total */
+  padding: var(--space-3) var(--space-4); /* Relleno 12px por 16px */
+  background-color: var(--color-alert-bg); /* Fondo rojizo suave */
+  border: 1px solid var(--color-alert-border); /* Borde rojo tenue */
+  border-radius: var(--radius-md); /* Esquinas redondeadas (8px) */
+  margin-top: var(--space-1); /* Separación superior de 4px */
+} /* Cierre de .alert */
+.alert[hidden] { /* Alerta cuando tiene el atributo HTML hidden */
+  display: none; /* Fuerza ocultarla */
+} /* Cierre de .alert[hidden] */
+.alert__dot { /* Punto rojo parpadeante */
+  width: 8px; /* Ancho de 8px */
+  height: 8px; /* Alto de 8px */
+  border-radius: 50%; /* Círculo perfecto */
+  background-color: var(--color-danger); /* Color rojo brillante */
+  animation: display-pulse 1s infinite alternate ease-in-out; /* Parpadea alternadamente cada segundo */
+} /* Cierre de .alert__dot */
+.alert__message { /* Texto del mensaje "¡Tiempo terminado!" */
+  font-size: 0.9375rem; /* 15px */
+  font-weight: 700; /* Negrita */
+  color: var(--color-alert-text); /* Texto rojo claro de alerta */
+  letter-spacing: -0.01em; /* Ajuste entre caracteres */
+} /* Cierre de .alert__message */
+/* ===== Atajos ===== */ /* Información de ayuda de teclado en el footer */
+.hint { /* Bloque de atajos */
+  display: flex; /* Flexbox */
+  justify-content: center; /* Centrado horizontal */
+  width: 100%; /* Ancho total */
+  text-align: center; /* Texto centrado */
+} /* Cierre de .hint */
+.hint__text { /* Párrafo de pistas */
+  display: inline-flex; /* Flexbox en línea */
+  align-items: center; /* Centrado vertical */
+  flex-wrap: wrap; /* Pasa a la siguiente línea si no cabe en pantalla */
+  justify-content: center; /* Centrado horizontal */
+  gap: var(--space-2); /* Separación de 8px */
+  font-size: 0.8125rem; /* 13px */
+  color: var(--color-text-subtle); /* Color atenuado */
+} /* Cierre de .hint__text */
+.hint__separator { /* Punto medio separador (·) */
+  color: var(--color-border); /* Color tenue del borde */
+} /* Cierre de .hint__separator */
+.hint__item { /* Cada atajo individual */
+  display: inline-flex; /* Flexbox en línea */
+  align-items: center; /* Centrado vertical */
+  gap: var(--space-1); /* 4px de espacio entre la tecla y la descripción */
+} /* Cierre de .hint__item */
+.hint__key { /* Etiqueta visual para teclas <kbd> */
+  display: inline-block; /* Bloque en línea */
+  padding: 0.125rem 0.375rem; /* Relleno compacto (2px por 6px) */
+  background-color: var(--color-surface); /* Fondo oscuro de superficie */
+  border: 1px solid var(--color-border); /* Borde para simular tecla física */
+  border-radius: var(--radius-xs); /* Esquinas redondeadas (4px) */
+  font-family: var(--font-mono); /* Tipografía monoespaciada */
+  font-size: 0.6875rem; /* 11px */
+  font-weight: 600; /* Seminegrita */
+  color: var(--color-text-muted); /* Gris medio */
+} /* Cierre de .hint__key */
+/* ===== Utilidades ===== */ /* Clases auxiliares */
+.sr-only { /* Oculta contenido visualmente pero lo mantiene disponible para lectores de pantalla */
+  position: absolute; /* Saca el elemento del flujo normal del documento */
+  width: 1px; /* Reduce ancho a 1px */
+  height: 1px; /* Reduce alto a 1px */
+  padding: 0; /* Sin relleno */
+  margin: -1px; /* Evita que ocupe espacio con margen negativo */
+  overflow: hidden; /* Oculta desbordamientos */
+  clip: rect(0, 0, 0, 0); /* Recorta el contenido haciéndolo invisible */
+  white-space: nowrap; /* Evita saltos de línea */
+  border-width: 0; /* Sin bordes */
+} /* Cierre de .sr-only */
+/* ===== Animaciones ===== */ /* Definición de keyframes para efectos visuales */
+@keyframes display-pulse { /* Animación de pulsación para alertas y fin de tiempo */
+  0% { /* Estado inicial de la animación */
+    opacity: 1; /* Completamente opaco */
+    transform: scale(1); /* Tamaño original */
+  } /* Cierre del fotograma 0% */
+  100% { /* Estado final de la animación */
+    opacity: 0.7; /* Opacidad reducida al 70% */
+    transform: scale(0.99); /* Reducción mínima al 99% para efecto de latido */
+  } /* Cierre del fotograma 100% */
+} /* Cierre de @keyframes display-pulse */
+/* ===== Adaptabilidad ===== */ /* Media queries para diseño responsive en diferentes pantallas */
+@media (min-width: 360px) { /* Pantallas móviles a partir de 360px */
+  .controls { /* Contenedor de botones de control */
+    display: grid; /* Cambia de columna a cuadrícula de dos columnas */
+    grid-template-columns: repeat(2, 1fr); /* 2 columnas de igual ancho (2 botones por fila) */
+    gap: var(--space-2); /* Separación de 8px */
+    max-width: 440px; /* Ancho máximo delimitado */
+    margin-left: auto; /* Centrado horizontal */
+    margin-right: auto; /* Centrado horizontal */
+  } /* Cierre de .controls */
+} /* Cierre de media query 360px */
+@media (min-width: 600px) { /* Tablets o pantallas medianas a partir de 600px */
+  .app { /* Contenedor principal */
+    padding: var(--space-6); /* Aumenta el padding general a 32px */
+  } /* Cierre de .app */
+  .controls { /* Botones de control */
+    display: flex; /* Vuelve a flexbox */
+    flex-direction: row; /* Coloca todos los botones en una sola fila horizontal */
+    justify-content: center; /* Centrado horizontal */
+    flex-wrap: wrap; /* Pasa a la siguiente línea si no entran */
+    gap: var(--space-3); /* Separación más generosa de 12px */
+    max-width: none; /* Elimina la restricción de ancho máximo */
+  } /* Cierre de .controls */
+  .button { /* Botones */
+    min-width: 120px; /* Asigna un ancho mínimo cómodo de 120px para tablets y escritorio */
+  } /* Cierre de .button */
+} /* Cierre de media query 600px */
+@media (min-width: 900px) { /* Pantallas de escritorio a partir de 900px */
+  .panel__body--stopwatch { /* Cuerpo del panel de cronómetro */
+    display: grid; /* Cambia a dos columnas */
+    grid-template-columns: 1.15fr 0.85fr; /* 1.15fr para display/controles y 0.85fr para la lista de vueltas a la derecha */
+    align-items: start; /* Alinea ambos bloques arriba */
+    gap: var(--space-6); /* Separación amplia de 32px entre columnas */
+  } /* Cierre de .panel__body--stopwatch */
+  .panel__body--countdown { /* Cuerpo del temporizador */
+    max-width: 580px; /* Limita el ancho del temporizador para que no se extienda excesivamente */
+    margin-left: auto; /* Centra el bloque a la izquierda */
+    margin-right: auto; /* Centra el bloque a la derecha */
+  } /* Cierre de .panel__body--countdown */
+  .lap-list-container { /* Lista de vueltas */
+    max-height: 440px; /* Amplía la altura máxima visible de la tabla a 440px */
+  } /* Cierre de .lap-list-container */
+} /* Cierre de media query 900px */
+@media (min-width: 1200px) { /* Pantallas grandes de escritorio */
+  .app { /* Contenedor principal */
+    padding: var(--space-8); /* Padding máximo de 48px */
+  } /* Cierre de .app */
+  .display { /* Pantalla digital */
+    padding: var(--space-8) var(--space-6); /* Mayor relleno interior para dar aspecto monumental */
+  } /* Cierre de .display */
+} /* Cierre de media query 1200px */
+@media (min-width: 1920px) { /* Pantallas extra grandes o televisores (Full HD / 4K) */
+  .header__title { /* Título */
+    font-size: 2.25rem; /* Tamaño fijo de 36px */
+  } /* Cierre de .header__title */
+  .display__time { /* Números del reloj */
+    font-size: clamp(7rem, 16vw, 11rem); /* Tamaño gigante de hasta 176px para visibilidad a distancia */
+  } /* Cierre de .display__time */
+  .button { /* Botones */
+    font-size: 1.125rem; /* 18px */
+    min-height: 52px; /* Mayor altura */
+    min-width: 140px; /* Mayor ancho */
+  } /* Cierre de .button */
+} /* Cierre de media query 1920px */
+@media (max-height: 500px) { /* Modo apaisado (landscape) en teléfonos o pantallas de poca altura */
+  .app { /* Contenedor */
+    padding: var(--space-2); /* Reduce el padding al mínimo (8px) para optimizar el espacio vertical */
+  } /* Cierre de .app */
+  .header { /* Encabezado */
+    gap: var(--space-1); /* Espaciado mínimo */
+    margin-bottom: var(--space-2); /* Margen inferior mínimo */
+  } /* Cierre de .header */
+  .header__title { /* Título */
+    font-size: 1rem; /* Reduce el título a 16px */
+  } /* Cierre de .header__title */
+  .display { /* Pantalla digital */
+    padding: var(--space-2); /* Reduce el padding del reloj */
+  } /* Cierre de .display */
+  .display__time { /* Números */
+    font-size: clamp(1.85rem, 8vw, 3rem); /* Escala más pequeña del tiempo para que no desborde verticalmente */
+  } /* Cierre de .display__time */
+  .panel__body--stopwatch, /* Cronómetro */
+  .panel__body--countdown { /* Temporizador */
+    display: grid; /* Cuadrícula de 2 columnas lado a lado */
+    grid-template-columns: 1fr 1fr; /* Columna izquierda para reloj, columna derecha para controles/vueltas */
+    gap: var(--space-3); /* Separación de 12px */
+    align-items: center; /* Centrado vertical */
+  } /* Cierre de disposición horizontal en poca altura */
+  .lap-list-container { /* Lista de vueltas */
+    max-height: 160px; /* Reduce la altura máxima de la tabla a 160px */
+  } /* Cierre de .lap-list-container */
+  .hint { /* Atajos de teclado */
+    display: none; /* Oculta los atajos en horizontal para ganar espacio crítico de pantalla */
+  } /* Cierre de .hint */
+} /* Cierre de media query max-height: 500px */
+/* ===== Preferencias del usuario ===== */ /* Accesibilidad y ergonomía */
+:focus-visible { /* Estilo del indicador de foco visible (cuando se navega con tecla Tabulador) */
+  outline: 2px solid var(--color-focus); /* Contorno azul de 2px de grosor */
+  outline-offset: 2px; /* Separa el anillo 2px del elemento para que no se superponga */
+} /* Cierre de :focus-visible */
+@media (hover: hover) { /* Aplica reglas solo si el dispositivo dispone de un puntero con hover real (ratón) */
+  .tabs__item:hover:not(.tabs__item--active) { /* Hover en pestañas inactivas */
+    background-color: var(--color-surface-hover); /* Fondo ligeramente iluminado */
+    color: var(--color-text); /* Texto en blanco */
+  } /* Cierre de hover en pestañas */
+  .button--primary:hover:not(:disabled) { /* Hover en botón primario */
+    background-color: var(--color-primary-hover); /* Azul más oscuro */
+  } /* Cierre de hover primario */
+  .button--secondary:hover:not(:disabled) { /* Hover en botón secundario */
+    background-color: var(--color-secondary-hover); /* Fondo más claro */
+    color: var(--color-text); /* Texto claro */
+    border-color: var(--color-border); /* Mantiene borde */
+  } /* Cierre de hover secundario */
+  .button--danger:hover:not(:disabled) { /* Hover en botón de reiniciar */
+    background-color: var(--color-danger); /* Fondo rojo sólido */
+    color: #ffffff; /* Texto en blanco puro */
+    border-color: var(--color-danger); /* Borde rojo */
+  } /* Cierre de hover peligro */
+  .button--preset:hover:not(:disabled) { /* Hover en botones rápidos */
+    background-color: var(--color-surface-hover); /* Fondo de superficie iluminado */
+    color: var(--color-text); /* Texto blanco */
+    border-color: var(--color-border-focus); /* Borde azul resaltado */
+    transform: translateY(-1px); /* Elevación sutil de 1px */
+  } /* Cierre de hover preset */
+  .lap-list__item:hover { /* Hover sobre una fila de vuelta */
+    background-color: var(--color-surface-hover); /* Ilumina la fila para seguir la lectura */
+  } /* Cierre de hover fila de vuelta */
+} /* Cierre de media query hover */
+@media (pointer: coarse) and (hover: none) { /* Detecta pantallas táctiles puras sin ratón (smartphones/tablets) */
+  .hint { /* Atajos de teclado */
+    display: none; /* Oculta la guía de atajos de teclado ya que los móviles no usan teclado físico */
+  } /* Cierre de .hint en táctiles */
+} /* Cierre de media query táctil */
+@media (prefers-reduced-motion: reduce) { /* Detecta si el usuario solicitó reducir animaciones en su sistema operativo por accesibilidad/cinetosis */
+  *, /* Todos los elementos */
+  *::before, /* Todos los ::before */
+  *::after { /* Todos los ::after */
+    animation-duration: 0.01ms; /* Reduce la duración de animaciones a un instante imperceptible */
+    animation-iteration-count: 1; /* Ejecuta solo una vez */
+    transition-duration: 0.01ms; /* Reduce las transiciones a 0.01ms */
+    scroll-behavior: auto; /* Desactiva el scroll suave para evitar mareos */
+  } /* Cierre de reseteo de movimiento */
+  .display--finished { /* Reloj al terminar */
+    animation: none; /* Cancela la animación de latido */
+  } /* Cierre de cancelación en display */
+  .alert__dot { /* Punto rojo de alerta */
+    animation: none; /* Cancela el parpadeo */
+  } /* Cierre de cancelación en dot */
+} /* Cierre de prefers-reduced-motion */
+@media (prefers-contrast: more) { /* Detecta si el usuario activó la opción de alto contraste en su sistema */
+  :root { /* Fuerza variables de máximo contraste */
+    --color-border: #ffffff; /* Bordes en blanco puro para máxima definición */
+    --color-border-subtle: #ffffff; /* Bordes secundarios también en blanco puro */
+    --color-text-muted: #ffffff; /* Textos secundarios en blanco puro */
+  } /* Cierre de variables alto contraste */
+} /* Cierre de prefers-contrast */
+@media (forced-colors: active) { /* Modo de alto contraste forzado del sistema (ej. Modo Contraste de Windows) */
+  .button, /* Botones */
+  .tabs, /* Pestañas */
+  .tabs__item, /* Ítems de pestaña */
+  .display, /* Pantalla */
+  .lap-list-container, /* Contenedor de vueltas */
+  .lap-list__item, /* Filas de vueltas */
+  .field__input, /* Inputs */
+  .alert, /* Alertas */
+  .hint__key { /* Teclas */
+    border: 2px solid ButtonText; /* Aplica bordes visibles forzados usando los colores del sistema del usuario */
+  } /* Cierre de bordes forzados */
+  .tabs__item--active { /* Pestaña activa en contraste forzado */
+    border-color: Highlight; /* Usa el color Highlight nativo del sistema operativo */
+  } /* Cierre de pestaña activa */
+  .button--primary { /* Botón primario en contraste forzado */
+    background-color: Highlight; /* Fondo con el color de resaltado del sistema */
+    color: HighlightText; /* Texto con el color de texto resaltado del sistema */
+  } /* Cierre de botón primario */
+} /* Cierre de forced-colors */

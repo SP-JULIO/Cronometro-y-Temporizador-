@@ -1,0 +1,118 @@
+<!DOCTYPE html> <!-- Declara el tipo de documento como HTML5 para que el navegador use el modo estándar -->
+<html lang="es"> <!-- Elemento raíz de la página que define el español como idioma del contenido -->
+<head> <!-- Contenedor de metadatos, configuraciones técnicas y enlaces a recursos externos -->
+  <meta charset="utf-8"> <!-- Establece la codificación de caracteres en UTF-8 (soporta tildes, eñes y caracteres especiales) -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"> <!-- Hace la página responsive adaptándola a la pantalla móvil y usando toda el área disponible (incluso con notch) -->
+  <title>Cronómetro y Temporizador</title> <!-- Título que aparece en la pestaña del navegador y marcadores -->
+  <meta name="description" content="Aplicación web de cronómetro y temporizador de alta precisión, accesible y responsive."> <!-- Resumen descriptivo de la app para motores de búsqueda (SEO) -->
+  <meta name="theme-color" content="#09090b"> <!-- Personaliza el color de la interfaz y barra de navegación en navegadores móviles -->
+  <meta name="color-scheme" content="dark light"> <!-- Notifica al navegador que la aplicación admite estilos tanto para tema oscuro como claro -->
+  <meta property="og:title" content="Cronómetro y Temporizador"> <!-- Título para el protocolo Open Graph al compartir el enlace en redes sociales o mensajería -->
+  <meta property="og:description" content="Cronómetro con milisegundos y vueltas, y temporizador con alerta visual y sonora."> <!-- Descripción de vista previa para redes sociales vía Open Graph -->
+  <meta property="og:type" content="website"> <!-- Especifica que el contenido compartido es de tipo sitio web -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⏱️</text></svg>"> <!-- Favicon de la pestaña generado directamente en SVG como Data URI con el emoji de cronómetro -->
+  <link rel="stylesheet" href="styles.css"> <!-- Enlace a la hoja de estilos externa CSS principal -->
+</head> <!-- Cierre de la sección de metadatos del documento -->
+<body> <!-- Apertura del cuerpo del documento con todo el contenido visual de la página -->
+  <div class="app"> <!-- Contenedor principal que envuelve y estructura toda la aplicación -->
+    <!-- Encabezado --> <!-- Comentario que identifica el inicio del bloque de encabezado -->
+    <header class="header app__header"> <!-- Etiqueta semántica para la cabecera superior de la aplicación -->
+      <div class="header__brand"> <!-- Contenedor para la marca o título identificador de la app -->
+        <span class="header__badge" aria-hidden="true">PRECISIÓN</span> <!-- Etiqueta visual informativa oculta a lectores de pantalla (aria-hidden) por ser decorativa -->
+        <h1 class="header__title">Cronómetro y Temporizador</h1> <!-- Encabezado de nivel 1 principal de la página -->
+      </div> <!-- Cierre del bloque de la marca -->
+      <nav class="tabs" role="tablist" aria-label="Modos de tiempo"> <!-- Navegación con rol accesible 'tablist' para alternar modos de la app -->
+        <button type="button" class="tabs__item tabs__item--active" role="tab" id="tab-stopwatch" aria-controls="panel-stopwatch" aria-selected="true" tabindex="0">Cronómetro</button> <!-- Pestaña activa del cronómetro, seleccionada (aria-selected="true") y enfocable (tabindex="0") -->
+        <button type="button" class="tabs__item" role="tab" id="tab-countdown" aria-controls="panel-countdown" aria-selected="false" tabindex="-1">Temporizador</button> <!-- Pestaña inactiva del temporizador, excluida de la navegación por tabulador inicial (tabindex="-1") -->
+      </nav> <!-- Cierre del componente de navegación por pestañas -->
+    </header> <!-- Cierre de la cabecera principal -->
+    <!-- Contenido principal --> <!-- Comentario que marca la sección central de la interfaz -->
+    <main class="app__main"> <!-- Etiqueta semántica que alberga el contenido principal de la aplicación -->
+      <!-- Cronómetro --> <!-- Comentario que delimita la sección del cronómetro -->
+      <section class="panel panel--active" id="panel-stopwatch" role="tabpanel" aria-labelledby="tab-stopwatch" tabindex="0"> <!-- Panel de contenido activo asociado a la pestaña de cronómetro -->
+        <div class="panel__body panel__body--stopwatch"> <!-- Contenedor del contenido interno del panel del cronómetro -->
+          <div class="panel__primary"> <!-- Columna/zona principal (muestra el tiempo y los botones de acción) -->
+            <div class="display display--stopwatch display--idle" id="stopwatch-display" role="timer" aria-label="Tiempo del cronómetro"> <!-- Pantalla digital del cronómetro con rol accesible 'timer' -->
+              <span class="display__time display__time--stopwatch" id="stopwatch-time"> <!-- Contenedor en línea para los números del cronómetro -->
+                <span class="display__digits" id="stopwatch-main">00:00</span><span class="display__ms" id="stopwatch-ms">.00</span> <!-- Dígitos principales (minutos:segundos) y fracción de milisegundos con estilos diferenciados -->
+              </span> <!-- Cierre del contenedor de tiempo -->
+            </div> <!-- Cierre del contenedor de la pantalla digital -->
+            <div class="controls panel__controls"> <!-- Contenedor agrupador de los botones de interacción del cronómetro -->
+              <button type="button" class="button button--primary" id="stopwatch-start" aria-label="Iniciar cronómetro">Iniciar</button> <!-- Botón primario para arrancar el conteo -->
+              <button type="button" class="button button--secondary" id="stopwatch-pause" aria-label="Pausar cronómetro" disabled>Pausar</button> <!-- Botón para pausar, deshabilitado al inicio hasta que el usuario arranque -->
+              <button type="button" class="button button--secondary" id="stopwatch-lap" aria-label="Registrar vuelta" disabled>Vuelta</button> <!-- Botón para capturar una vuelta (lap), deshabilitado por defecto -->
+              <button type="button" class="button button--danger" id="stopwatch-reset" aria-label="Reiniciar cronómetro" disabled>Reiniciar</button> <!-- Botón de reinicio (reseteo a cero), deshabilitado mientras esté en reposo -->
+            </div> <!-- Cierre de la barra de botones de control -->
+          </div> <!-- Cierre de la zona primaria del cronómetro -->
+          <div class="panel__secondary"> <!-- Zona secundaria destinada al registro histórico de vueltas -->
+            <div class="lap-list-container"> <!-- Contenedor general de la lista de vueltas -->
+              <div class="lap-list-container__header"> <!-- Cabecera del bloque de vueltas -->
+                <span class="lap-list-container__title">Registro de vueltas</span> <!-- Título descriptivo de la sección de vueltas -->
+                <span class="lap-list-container__count" id="lap-count">0 vueltas</span> <!-- Contador numérico actualizado dinámicamente con JavaScript -->
+              </div> <!-- Cierre de la cabecera de vueltas -->
+              <div class="lap-list-table-header" aria-hidden="true"> <!-- Cabecera visual en columnas tipo tabla, oculta a lectores de pantalla (aria-hidden) -->
+                <span class="lap-list-table-header__col lap-list-table-header__col--num">#</span> <!-- Columna para el número ordinal de la vuelta -->
+                <span class="lap-list-table-header__col lap-list-table-header__col--split">Parcial</span> <!-- Columna que indica el tiempo individual de cada vuelta -->
+                <span class="lap-list-table-header__col lap-list-table-header__col--total">Total</span> <!-- Columna para el tiempo acumulado total -->
+              </div> <!-- Cierre de la fila de cabecera -->
+              <ol class="lap-list" id="stopwatch-laps" aria-label="Lista de vueltas"></ol> <!-- Lista ordenada (ol) donde el script inserta dinámicamente cada vuelta registrada -->
+              <p class="lap-list-container__empty" id="lap-empty">Sin vueltas registradas</p> <!-- Mensaje de estado por defecto visible cuando aún no existen vueltas -->
+            </div> <!-- Cierre del contenedor de vueltas -->
+          </div> <!-- Cierre de la zona secundaria -->
+        </div> <!-- Cierre del cuerpo del panel del cronómetro -->
+      </section> <!-- Cierre de la sección del cronómetro -->
+      <!-- Temporizador --> <!-- Comentario que delimita la sección del temporizador -->
+      <section class="panel" id="panel-countdown" role="tabpanel" aria-labelledby="tab-countdown" tabindex="0" hidden> <!-- Panel accesible del temporizador, oculto inicialmente con el atributo 'hidden' -->
+        <div class="panel__body panel__body--countdown"> <!-- Contenedor interno del cuerpo del temporizador -->
+          <form class="form panel__form" id="countdown-form" novalidate> <!-- Formulario para configurar tiempo con validación HTML5 nativa desactivada (novalidate) para gestionarla por script -->
+            <fieldset class="form__group"> <!-- Agrupa semánticamente los campos relacionados de minutos y segundos -->
+              <legend class="sr-only">Configurar duración</legend> <!-- Título del grupo accesible solo para lectores de pantalla mediante la clase 'sr-only' -->
+              <div class="field"> <!-- Contenedor individual para el campo de minutos -->
+                <label class="field__label" for="countdown-minutes">Minutos</label> <!-- Etiqueta visible enlazada al input correspondiente mediante el atributo 'for' -->
+                <input class="field__input" type="number" inputmode="numeric" id="countdown-minutes" name="minutes" min="0" max="99" step="1" value="05" required aria-describedby="countdown-error"> <!-- Campo numérico para minutos (rango 0 a 99) vinculado al mensaje de error accesible -->
+              </div> <!-- Cierre del campo de minutos -->
+              <span class="form__separator" aria-hidden="true">:</span> <!-- Separador visual de dos puntos ignorado por tecnologías asistivas (aria-hidden) -->
+              <div class="field"> <!-- Contenedor individual para el campo de segundos -->
+                <label class="field__label" for="countdown-seconds">Segundos</label> <!-- Etiqueta visible asociada al input de segundos -->
+                <input class="field__input" type="number" inputmode="numeric" id="countdown-seconds" name="seconds" min="0" max="59" step="1" value="00" required aria-describedby="countdown-error"> <!-- Campo numérico para segundos (rango 0 a 59) con teclado numérico en móviles (inputmode) -->
+              </div> <!-- Cierre del campo de segundos -->
+            </fieldset> <!-- Cierre del grupo de campos de duración -->
+            <div class="form__presets" aria-label="Tiempos rápidos"> <!-- Grupo de botones con tiempos predefinidos -->
+              <button type="button" class="button button--preset" data-minutes="1" data-seconds="0" aria-label="Configurar 1 minuto">1 min</button> <!-- Botón de acceso rápido para 1 minuto usando data-attributes -->
+              <button type="button" class="button button--preset" data-minutes="5" data-seconds="0" aria-label="Configurar 5 minutos">5 min</button> <!-- Botón de acceso rápido para 5 minutos -->
+              <button type="button" class="button button--preset" data-minutes="10" data-seconds="0" aria-label="Configurar 10 minutos">10 min</button> <!-- Botón de acceso rápido para 10 minutos -->
+              <button type="button" class="button button--preset" data-minutes="15" data-seconds="0" aria-label="Configurar 15 minutos">15 min</button> <!-- Botón de acceso rápido para 15 minutos -->
+            </div> <!-- Cierre del grupo de presets rápidos -->
+            <p class="field__error" id="countdown-error" role="alert" aria-live="polite"></p> <!-- Contenedor de errores con role='alert' y aria-live para anunciar problemas de validación a lectores de pantalla -->
+          </form> <!-- Cierre del formulario de ajuste del temporizador -->
+          <div class="display display--countdown display--idle" id="countdown-display" role="timer" aria-label="Tiempo restante"> <!-- Pantalla digital del temporizador con rol semántico 'timer' -->
+            <span class="display__time display__time--countdown" id="countdown-time">05:00</span> <!-- Texto con el tiempo restante visible (MM:SS) -->
+          </div> <!-- Cierre de la pantalla del temporizador -->
+          <div class="alert" id="countdown-alert" role="alert" aria-live="assertive" hidden> <!-- Notificación de fin de tiempo (aria-live='assertive' interrumpe al lector para anunciar la alerta) -->
+            <span class="alert__dot" aria-hidden="true"></span> <!-- Indicador visual decorativo tipo punto parpadeante -->
+            <p class="alert__message">¡Tiempo terminado!</p> <!-- Mensaje que notifica la finalización de la cuenta regresiva -->
+          </div> <!-- Cierre del cuadro de alerta -->
+          <div class="controls panel__controls"> <!-- Contenedor de controles del temporizador -->
+            <button type="button" class="button button--primary" id="countdown-start" aria-label="Iniciar temporizador">Iniciar</button> <!-- Botón principal para iniciar la cuenta regresiva -->
+            <button type="button" class="button button--secondary" id="countdown-pause" aria-label="Pausar temporizador" disabled>Pausar</button> <!-- Botón para pausar la cuenta regresiva (deshabilitado al inicio) -->
+            <button type="button" class="button button--danger" id="countdown-reset" aria-label="Reiniciar temporizador" disabled>Reiniciar</button> <!-- Botón para reiniciar el temporizador a su estado original (deshabilitado al inicio) -->
+          </div> <!-- Cierre de los controles del temporizador -->
+        </div> <!-- Cierre del cuerpo del temporizador -->
+      </section> <!-- Cierre de la sección del temporizador -->
+    </main> <!-- Cierre del contenedor principal main -->
+    <!-- Atajos de teclado --> <!-- Comentario informativo que marca la sección de guía de atajos -->
+    <footer class="hint app__footer"> <!-- Pie de página con información y consejos sobre teclas rápidas -->
+      <p class="hint__text"> <!-- Párrafo que agrupa las instrucciones de los atajos -->
+        <span class="hint__item"><kbd class="hint__key">Espacio</kbd> Iniciar/Pausar</span> <!-- Indica el atajo de la tecla Espacio usando la etiqueta semántica <kbd> -->
+        <span class="hint__separator">&middot;</span> <!-- Carácter especial de punto medio (·) como separador visual -->
+        <span class="hint__item"><kbd class="hint__key">L</kbd> Vuelta</span> <!-- Indica el atajo de teclado para la tecla L (vueltas) -->
+        <span class="hint__separator">&middot;</span> <!-- Separador visual entre atajos -->
+        <span class="hint__item"><kbd class="hint__key">R</kbd> Reiniciar</span> <!-- Indica el atajo de teclado para la tecla R (reiniciar) -->
+      </p> <!-- Cierre del párrafo de atajos -->
+    </footer> <!-- Cierre del pie de página -->
+    <!-- Accesibilidad --> <!-- Comentario para la zona oculta de accesibilidad -->
+    <div class="sr-only" id="sr-announcements" aria-live="polite" aria-atomic="true"></div> <!-- Región oculta ('screen reader only') para anunciar verbalmente cambios de estado dinámicos -->
+  </div> <!-- Cierre del contenedor .app -->
+  <script src="app.js" defer></script> <!-- Carga el archivo JavaScript externo tras el parseo completo del DOM gracias al atributo 'defer' -->
+</body> <!-- Cierre del cuerpo del documento -->
+</html> <!-- Fin y cierre del documento HTML -->
